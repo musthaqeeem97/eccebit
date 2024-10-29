@@ -1,17 +1,26 @@
 package com.eccehomo.eccebit.controller;
 
+import com.eccehomo.eccebit.dto.CreateOrderRequest;
+import com.eccehomo.eccebit.model.Coin;
+import com.eccehomo.eccebit.model.Order;
+import com.eccehomo.eccebit.model.User;
 import com.eccehomo.eccebit.service.CoinService;
+import com.eccehomo.eccebit.service.OrderService;
 import com.eccehomo.eccebit.service.UserService;
+import com.eccehomo.eccebit.service.WalletTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
 
 
+    private final OrderService orderService;
     private UserService userSerivce;
 
     @Autowired

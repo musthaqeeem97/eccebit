@@ -38,6 +38,8 @@ public class UserController {
     public ResponseEntity<User> getUserProfileHandler(
             @RequestHeader("Authorization") String jwt) throws UserException {
 
+        System.out.println("inside profile handler");
+
         User user = userService.findUserProfileByJwt(jwt);
         user.setPassword(null);
 

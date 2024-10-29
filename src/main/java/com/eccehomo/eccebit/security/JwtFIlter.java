@@ -1,6 +1,7 @@
 package com.eccehomo.eccebit.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -20,10 +21,14 @@ import java.util.List;
 
 public class JwtFIlter extends OncePerRequestFilter {
 
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String jwt = request.getHeader(JWTConstant.JWT_HEADER);
+        
+          System.out.println("wt filter...."+jwt);
 
         if(jwt!=null) {
             jwt=jwt.substring(7);
@@ -36,15 +41,17 @@ public class JwtFIlter extends OncePerRequestFilter {
                 Claims claims= Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 
                 String email=String.valueOf(claims.get("email"));
-
+                System.out.println("inside try 3");
                 String authorities=String.valueOf(claims.get("authorities"));
 
-                System.out.println("authorities -------- "+authorities);
 
                 List<GrantedAuthority> auths= AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
                 Authentication athentication=new UsernamePasswordAuthenticationToken(email,null, auths);
 
                 SecurityContextHolder.getContext().setAuthentication(athentication);
+
+                System.out.println("inside try end");
+
 
             } catch (Exception e) {
                 throw new RuntimeException("invalid token...");

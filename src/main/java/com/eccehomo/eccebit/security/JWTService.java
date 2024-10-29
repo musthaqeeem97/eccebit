@@ -15,18 +15,15 @@ import java.util.Set;
 
 public class JWTService {
 
-    @Value("${application.security.jwt.expiration}")
-    private static long expiration;
-
-    private static SecretKey key= Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
+    private static SecretKey key=Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
 
     public static String generateToken(Authentication auth) {
         Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
         String roles = populateAuthorities(authorities);
 
-        String jwt= Jwts.builder()
+        String jwt=Jwts.builder()
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime()+expiration))
+                .setExpiration(new Date(new Date().getTime()+86400000))
                 .claim("email",auth.getName())
                 .claim("authorities", roles)
                 .signWith(key)
@@ -53,9 +50,4 @@ public class JWTService {
         return String.join(",",auths);
     }
 
-//    private SecretKey getSignKey() {
-//
-//        return Keys.hmacShaKeyFor(JWTConstant.SECRET_KEY.getBytes());
-//    }
-//}
 }

@@ -174,7 +174,7 @@ public class CoinServiceImplementation implements CoinService{
 
     @Override
     public String getTop50CoinsByMarketCapRank() {
-        String url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&page=1&per_page=50";
+        String url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=yen&page=1&per_page=50";
 
         RestTemplate restTemplate = new RestTemplate();
         try {

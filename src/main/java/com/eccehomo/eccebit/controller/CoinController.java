@@ -1,7 +1,7 @@
 package com.eccehomo.eccebit.controller;
 
 import com.eccehomo.eccebit.model.Coin;
-import com.eccehomo.eccebit.service.CoinServiceImplementation;
+import com.eccehomo.eccebit.service.CoinService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CoinController {
 
     @Autowired
-    private CoinServiceImplementation coinService;
+    private CoinService coinService;
 
     @Autowired
     private ObjectMapper objectMapper;
